@@ -70,7 +70,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -84,7 +84,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -149,20 +149,20 @@ TextureImporter:
       name: coin__0
       rect:
         serializedVersion: 2
-        x: 2
-        y: 2
-        width: 12
-        height: 12
+        x: 0
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 9774f6a4cd61cd530800000000000000
-      internalID: 3881002114283947897
+      spriteID: b428b0aee6c1d954e8d25363ad20bd0e
+      internalID: 1039625757
       vertices: []
       indices: 
       edges: []
@@ -171,20 +171,20 @@ TextureImporter:
       name: coin__1
       rect:
         serializedVersion: 2
-        x: 19
-        y: 2
-        width: 10
-        height: 12
+        x: 16
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: bf2f5a52c41338770800000000000000
-      internalID: 8611781115581428475
+      spriteID: 704d8495552445f48b2e3a5cb26c4feb
+      internalID: 1051453469
       vertices: []
       indices: 
       edges: []
@@ -193,20 +193,20 @@ TextureImporter:
       name: coin__2
       rect:
         serializedVersion: 2
-        x: 36
-        y: 2
-        width: 8
-        height: 12
+        x: 32
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 38599a01fb35a4750800000000000000
-      internalID: 6289931909659727235
+      spriteID: 0e8192ce1d76e65469461fe1faa74cfe
+      internalID: 779234496
       vertices: []
       indices: 
       edges: []
@@ -215,20 +215,20 @@ TextureImporter:
       name: coin__3
       rect:
         serializedVersion: 2
-        x: 53
-        y: 2
-        width: 6
-        height: 12
+        x: 48
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 48f11d64d43b43350800000000000000
-      internalID: 5995614148418936708
+      spriteID: c3ca2a665e61a2f468db1bece72d1f1c
+      internalID: 1022129737
       vertices: []
       indices: 
       edges: []
@@ -237,20 +237,20 @@ TextureImporter:
       name: coin__4
       rect:
         serializedVersion: 2
-        x: 68
-        y: 2
-        width: 8
-        height: 12
+        x: 64
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: c252828ec0c55ae90800000000000000
-      internalID: -7015099634055371476
+      spriteID: d491f164434be0b40a43c4f1679c40f0
+      internalID: -1678704589
       vertices: []
       indices: 
       edges: []
@@ -259,20 +259,20 @@ TextureImporter:
       name: coin__5
       rect:
         serializedVersion: 2
-        x: 83
-        y: 2
-        width: 10
-        height: 12
+        x: 80
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 6452b2c07d1a237e0800000000000000
-      internalID: -1787188157118470842
+      spriteID: bb1ff88e98e9ad1449e307bedc49d36d
+      internalID: -1665836881
       vertices: []
       indices: 
       edges: []
@@ -281,20 +281,20 @@ TextureImporter:
       name: coin__6
       rect:
         serializedVersion: 2
-        x: 98
-        y: 2
-        width: 12
-        height: 12
+        x: 96
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: da408200f7fdadbf0800000000000000
-      internalID: -298680688710253395
+      spriteID: 9e034c5dbc8021c4fbbb483ff6051386
+      internalID: 1446536074
       vertices: []
       indices: 
       edges: []
@@ -303,20 +303,20 @@ TextureImporter:
       name: coin__7
       rect:
         serializedVersion: 2
-        x: 115
-        y: 2
-        width: 10
-        height: 12
+        x: 112
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: c45bde57202060170800000000000000
-      internalID: 8144199185737823564
+      spriteID: fbda1ad27f4b469418239eca0184310a
+      internalID: 1286866785
       vertices: []
       indices: 
       edges: []
@@ -325,20 +325,20 @@ TextureImporter:
       name: coin__8
       rect:
         serializedVersion: 2
-        x: 132
-        y: 2
-        width: 8
-        height: 12
+        x: 128
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 4279a376f1ca110a0800000000000000
-      internalID: -6912554702161144028
+      spriteID: 8c91bcffa4af9c14d8c1e4aa04d5244f
+      internalID: 1691667915
       vertices: []
       indices: 
       edges: []
@@ -347,20 +347,20 @@ TextureImporter:
       name: coin__9
       rect:
         serializedVersion: 2
-        x: 149
-        y: 2
-        width: 6
-        height: 12
+        x: 144
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: e6a9398de409781c0800000000000000
-      internalID: -4501470634218120594
+      spriteID: a4f79cd50e1d26d4ba4aabcbe0e8d758
+      internalID: 906651731
       vertices: []
       indices: 
       edges: []
@@ -369,20 +369,20 @@ TextureImporter:
       name: coin__10
       rect:
         serializedVersion: 2
-        x: 164
-        y: 2
-        width: 8
-        height: 12
+        x: 160
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 76a08f72036187810800000000000000
-      internalID: 1763183650200357479
+      spriteID: 3d731162c4c3e3d449975f05ff7881dd
+      internalID: 1590774864
       vertices: []
       indices: 
       edges: []
@@ -391,20 +391,20 @@ TextureImporter:
       name: coin__11
       rect:
         serializedVersion: 2
-        x: 179
-        y: 2
-        width: 10
-        height: 12
+        x: 176
+        y: 0
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: df99983efca0b9780800000000000000
-      internalID: -8675328369207174659
+      spriteID: bd71fbd99983a7c46b6af8cec6547360
+      internalID: -60966668
       vertices: []
       indices: 
       edges: []
@@ -413,7 +413,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: d3396d992a8dafa48bda8d495c0e081a
     internalID: 0
     vertices: []
     indices: 
@@ -422,7 +422,19 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      coin__0: 1039625757
+      coin__1: 1051453469
+      coin__10: 1590774864
+      coin__11: -60966668
+      coin__2: 779234496
+      coin__3: 1022129737
+      coin__4: -1678704589
+      coin__5: -1665836881
+      coin__6: 1446536074
+      coin__7: 1286866785
+      coin__8: 1691667915
+      coin__9: 906651731
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
