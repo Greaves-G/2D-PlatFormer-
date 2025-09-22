@@ -222,7 +222,11 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      dungeon__0: 6686451586988383583
+      dungeon__1: -1602568843373327017
+      dungeon__2: 6415041157054553571
+      dungeon__3: -2227279755234028666
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
