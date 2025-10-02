@@ -1,16 +1,41 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class playerMovement : MonoBehaviour
 {
     public float m_speed = 10.0f;
     Rigidbody2D m_Rigidbody;
-    public float m_JumpPower = 10.0f; 
+
+
+    public PlayerInput playerinput;
+
+    //store control actions
+    private InputAction jumpAction;
+
+
+    private bool isJumping = false;
+    private float jumpTimeCounter;
+    public float jumpForce = 10f;
+    public float jumpHoldForce = 5f;
+    public float maxJumpTime = 0.5f;
+
+    public Transform groundCheckPoint;
+    public LayerMask whatIsGround;
+    public float groundCheckRadius;
+    private bool isGrounded;
+
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
         m_Rigidbody = GetComponent<Rigidbody2D>();
+
+        jumpAction = playerinput.actions["jump"];
     }
+
 
     // Update is called once per frame
     void Update()
@@ -20,9 +45,34 @@ public class playerMovement : MonoBehaviour
 
         m_Rigidbody.linearVelocity = new Vector2(xmove * m_speed, m_Rigidbody.linearVelocity.y);
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        isGrounded = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, whatIsGround);
+
+        if (jumpAction.WasPressedThisFrame() && isGrounded == true)
         {
-            m_Rigidbody.AddForce(Vector2.up * m_JumpPower, ForceMode2D.Impulse); 
+            jumpTimeCounter = maxJumpTime;
+            m_Rigidbody.linearVelocity = new Vector2(m_Rigidbody.linearVelocity.x, jumpForce);
         }
+
+        if (jumpAction.IsPressed() && m_Rigidbody.linearVelocity.y > 0f)
+        {
+            if (jumpTimeCounter > 0)
+            {
+                m_Rigidbody.linearVelocity = new Vector2(m_Rigidbody.linearVelocity.x, jumpHoldForce);
+                jumpTimeCounter -= Time.deltaTime;
+            }
+            else
+            {
+                isJumping = false;
+            }
+        }
+        if (jumpAction.WasReleasedThisFrame())
+        {
+            isJumping = false;
+        }
+
+
+        
+
     }
+
 }
