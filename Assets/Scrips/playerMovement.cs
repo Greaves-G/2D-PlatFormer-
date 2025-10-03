@@ -32,27 +32,29 @@ public class playerMovement : MonoBehaviour
     void Start()
     {
         m_Rigidbody = GetComponent<Rigidbody2D>();
-
+        //finding what the jump button is.
         jumpAction = playerinput.actions["jump"];
     }
 
 
     // Update is called once per frame
     void Update()
-    {
+    {   //Moving left and right.
         float xmove = Input.GetAxisRaw("Horizontal");
         float ymove = Input.GetAxisRaw("Vertical");
 
         m_Rigidbody.linearVelocity = new Vector2(xmove * m_speed, m_Rigidbody.linearVelocity.y);
 
+        //Code for checking if you are grounded
         isGrounded = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, whatIsGround);
-
+        
+        //Adding force upwards if you are grounded
         if (jumpAction.WasPressedThisFrame() && isGrounded == true)
         {
             jumpTimeCounter = maxJumpTime;
             m_Rigidbody.linearVelocity = new Vector2(m_Rigidbody.linearVelocity.x, jumpForce);
         }
-
+        // the jumping code
         if (jumpAction.IsPressed() && m_Rigidbody.linearVelocity.y > 0f)
         {
             if (jumpTimeCounter > 0)
@@ -65,14 +67,35 @@ public class playerMovement : MonoBehaviour
                 isJumping = false;
             }
         }
+        // Code to stop jumping if the key was released
         if (jumpAction.WasReleasedThisFrame())
         {
-            isJumping = false;
+            isJumping = false ;
         }
 
 
         
 
     }
+
+    void FixedUpdate()
+    {
+        // Code for checking if you are grounded
+        isGrounded = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, whatIsGround);
+
+        // Code for checking if you are jumping
+        isJumping = !isGrounded && m_Rigidbody.linearVelocity.y > 0;
+
+
+
+
+    }
+
+
+
+
+
+
+
 
 }
