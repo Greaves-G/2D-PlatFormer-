@@ -54,7 +54,7 @@ public class playerMovement : MonoBehaviour
             jumpTimeCounter = maxJumpTime;
             m_Rigidbody.linearVelocity = new Vector2(m_Rigidbody.linearVelocity.x, jumpForce);
         }
-        // the jumping code
+        // held jump force
         if (jumpAction.IsPressed() && m_Rigidbody.linearVelocity.y > 0f)
         {
             if (jumpTimeCounter > 0)
@@ -67,9 +67,10 @@ public class playerMovement : MonoBehaviour
                 isJumping = false;
             }
         }
-        // Code to stop jumping if the key was released
+        // Code to stop jumping if the key was released early
         if (jumpAction.WasReleasedThisFrame())
         {
+            m_Rigidbody.linearVelocity = new Vector3(m_Rigidbody.linearVelocity.x, 0, m_Rigidbody.linearVelocity.y);
             isJumping = false ;
         }
 

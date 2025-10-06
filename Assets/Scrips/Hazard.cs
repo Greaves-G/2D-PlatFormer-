@@ -9,6 +9,8 @@ public class Hazard : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+
+        // if collide with object player takes damage
         if (collision.CompareTag("Player"))
         {
             PlayerHealth playerHealth = collision.GetComponent<PlayerHealth>();
