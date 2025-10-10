@@ -25,6 +25,12 @@ public class playerMovement : MonoBehaviour
     public float groundCheckRadius;
     private bool isGrounded;
 
+    //variables for acceleration and max speed
+    public float acceleration = 20f;
+    public float deceleration = 30f;
+    public float maxSpeed = 10f;
+    private float currentSpeed = 0f;
+
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -40,10 +46,33 @@ public class playerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {   //Moving left and right.
-        float xmove = Input.GetAxisRaw("Horizontal");
-        float ymove = Input.GetAxisRaw("Vertical");
+        float xMove = Input.GetAxisRaw("Horizontal");
 
-        m_Rigidbody.linearVelocity = new Vector2(xmove * m_speed, m_Rigidbody.linearVelocity.y);
+        if (xMove != 0)
+        {
+            // Accelerate towards max speed
+            currentSpeed += xMove * acceleration * Time.deltaTime;
+            currentSpeed = Mathf.Clamp(currentSpeed, -maxSpeed, maxSpeed);
+        }
+        else
+        {
+            // Decelerate to 0 when no input
+            if (currentSpeed > 0)
+            {
+                currentSpeed -= deceleration * Time.deltaTime;
+                if (currentSpeed < 0) currentSpeed = 0;
+            }
+            else if (currentSpeed < 0)
+            {
+                currentSpeed += deceleration * Time.deltaTime;
+                if (currentSpeed > 0) currentSpeed = 0;
+            }
+        }
+
+        m_Rigidbody.linearVelocity = new Vector2(currentSpeed, m_Rigidbody.linearVelocity.y);
+
+
+        m_Rigidbody.linearVelocity = new Vector2(xMove * m_speed, m_Rigidbody.linearVelocity.y);
 
         //Code for checking if you are grounded
         isGrounded = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, whatIsGround);
@@ -87,8 +116,7 @@ public class playerMovement : MonoBehaviour
         // Code for checking if you are jumping
         isJumping = !isGrounded && m_Rigidbody.linearVelocity.y > 0;
 
-
-
+        m_Rigidbody.linearVelocity = new Vector2(currentSpeed, m_Rigidbody.linearVelocity.y);
 
     }
 
