@@ -18,6 +18,9 @@ public class PlayerHealth : MonoBehaviour
     Rigidbody2D m_RB;
     playerMovement m_PlayerMovement;
 
+    public GameObject heart1;
+    public GameObject heart2;
+    public GameObject heart3;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -32,7 +35,7 @@ public class PlayerHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+      
     }
 
 
@@ -93,6 +96,10 @@ public class PlayerHealth : MonoBehaviour
     void UpdateHealthUI()
     {
 
-        m_HealthText.text = "health" + m_CurrentHealth;
+        m_HealthText.text = "HP" + m_CurrentHealth;
+
+        heart1.SetActive(m_CurrentHealth >= 1);
+        heart2.SetActive(m_CurrentHealth >= 2);
+        heart3.SetActive(m_CurrentHealth >= 3);
     }
 }

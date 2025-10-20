@@ -36,6 +36,7 @@ public class playerMovement : MonoBehaviour
     public LayerMask whatIsGround;
     public float groundCheckRadius;
     private bool isGrounded;
+    private bool wasGrounded;
 
     //variables for acceleration and max speed
     public float acceleration = 20f;
@@ -70,6 +71,13 @@ public class playerMovement : MonoBehaviour
         // Check grounded in physics update
         isJumping = !isGrounded && m_Rigidbody.linearVelocity.y > 0;
 
+        // Ground and wall checks
+        isGrounded = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, whatIsGround);
+        wasGrounded = isGrounded;
+        Vector2 wallCheckDir = transform.right * Mathf.Sign(transform.localScale.x);
+        isTouchingWall = Physics2D.Raycast(wallCheckPoint.position, wallCheckDir, wallCheckDistance, whatIsWall);
+
+
         // Smooth flip based on current speed instead of input
         if (currentSpeed > 0.1f)
         {
@@ -83,41 +91,19 @@ public class playerMovement : MonoBehaviour
         // animations
         Animator.SetFloat("Speed", Mathf.Abs(xMove));
 
-        // Horizontal movement with acceleration
-        if (xMove != 0)
-        {
-            currentSpeed += xMove * acceleration * Time.deltaTime;
-            currentSpeed = Mathf.Clamp(currentSpeed, -maxSpeed, maxSpeed);
-        }
-        else
-        {
-            if (currentSpeed > 0)
-            {
-                currentSpeed -= deceleration * Time.deltaTime;
-                if (currentSpeed < 0) currentSpeed = 0;
-            }
-            else if (currentSpeed < 0)
-            {
-                currentSpeed += deceleration * Time.deltaTime;
-                if (currentSpeed > 0) currentSpeed = 0;
-            }
-        }
-
-        // Apply horizontal velocity
-        m_Rigidbody.linearVelocity = new Vector2(currentSpeed, m_Rigidbody.linearVelocity.y);
+        
 
         // Ground check
         isGrounded = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, whatIsGround);
 
-        // Initial jump
+        // When you press jump and launch upward
         if (jumpAction.WasPressedThisFrame() && isGrounded)
         {
             jumpTimeCounter = maxJumpTime;
             isJumping = true;
-            canCancelJump = true; 
+            canCancelJump = true;
             m_Rigidbody.linearVelocity = new Vector2(m_Rigidbody.linearVelocity.x, jumpForce);
         }
-
         // Held jump force
         if (jumpAction.IsPressed() && m_Rigidbody.linearVelocity.y > 0f && isJumping)
         {
@@ -140,13 +126,26 @@ public class playerMovement : MonoBehaviour
             canCancelJump = false;
         }
 
+        //Detect jumping
+        if (jumpAction.WasPressedThisFrame() && isGrounded)
+        {
+            //Jump this frame
+            Animator.SetBool("Jumping", true);
+        }
+
     }
-            void FixedUpdate()
+    void OnCollisionEnter2D(Collision2D col)
     {
-        // Ground and wall checks
-        isGrounded = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, whatIsGround);
-        Vector2 wallCheckDir = transform.right * Mathf.Sign(transform.localScale.x);
-        isTouchingWall = Physics2D.Raycast(wallCheckPoint.position, wallCheckDir, wallCheckDistance, whatIsWall);
+        if (((1 << col.gameObject.layer) & whatIsGround) != 0)
+        {
+            // You’ve landed on ground
+            Animator.SetBool("Jumping", false);
+        }
+    }
+
+    void FixedUpdate()
+    {
+      
 
         //build the velocity vector
         Vector2 newVelocity = new Vector2(currentSpeed, m_Rigidbody.linearVelocity.y);
@@ -185,7 +184,6 @@ public class playerMovement : MonoBehaviour
         // Apply final velocity after all movement and jump logic
         m_Rigidbody.linearVelocity = newVelocity;
 
-        Debug.Log("HeldJump: " + jumpAction.IsPressed() + " | isJumping: " + isJumping + " | TimeLeft: " + jumpTimeCounter + " | yVel: " + newVelocity.y);
 
 
     }
