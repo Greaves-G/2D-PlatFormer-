@@ -9,7 +9,8 @@ public class AnswerScript : MonoBehaviour
 
     private QuestionManager m_QuestionManagerRef;
 
-
+    //Damage
+    public int m_Damage = 1;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -44,6 +45,13 @@ public class AnswerScript : MonoBehaviour
             }
             else
             {
+                //If the player gets it wrong take one damage
+                PlayerHealth playerHealth = collision.GetComponent<PlayerHealth>();
+                if (playerHealth != null)
+                {
+                    playerHealth.TakeDamage(m_Damage);
+                }
+
                 Debug.Log("player chose the wrong answer");
             }
         }

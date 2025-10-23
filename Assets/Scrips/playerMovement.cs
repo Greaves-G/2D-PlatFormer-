@@ -49,15 +49,23 @@ public class playerMovement : MonoBehaviour
 
     // Store input for FixedUpdate
     private float xMove;
-    
+
+    //Sound effects
+    public AudioClip Jumpfx;
+
+    private AudioSource audioSource;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     void Start()
     {
         m_Rigidbody = GetComponent<Rigidbody2D>();
+        
         //finding what the jump button is.
         jumpAction = playerinput.actions["jump"];
+
+        //Getting Audiosource
+        audioSource = GetComponent<AudioSource>();
     }
 
 
@@ -103,6 +111,8 @@ public class playerMovement : MonoBehaviour
             isJumping = true;
             canCancelJump = true;
             m_Rigidbody.linearVelocity = new Vector2(m_Rigidbody.linearVelocity.x, jumpForce);
+            audioSource.clip = Jumpfx;
+            audioSource.Play();
         }
         // Held jump force
         if (jumpAction.IsPressed() && m_Rigidbody.linearVelocity.y > 0f && isJumping)
