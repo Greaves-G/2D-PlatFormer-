@@ -111,8 +111,7 @@ public class playerMovement : MonoBehaviour
             isJumping = true;
             canCancelJump = true;
             m_Rigidbody.linearVelocity = new Vector2(m_Rigidbody.linearVelocity.x, jumpForce);
-            audioSource.clip = Jumpfx;
-            audioSource.Play();
+            
         }
         // Held jump force
         if (jumpAction.IsPressed() && m_Rigidbody.linearVelocity.y > 0f && isJumping)
@@ -141,6 +140,8 @@ public class playerMovement : MonoBehaviour
         {
             //Jump this frame
             Animator.SetBool("Jumping", true);
+            audioSource.clip = Jumpfx;
+            audioSource.Play();
         }
 
     }
