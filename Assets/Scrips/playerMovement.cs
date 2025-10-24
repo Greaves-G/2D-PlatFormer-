@@ -1,6 +1,7 @@
     using Unity.VisualScripting;
     using UnityEngine;
-    using UnityEngine.InputSystem;
+using UnityEngine.Experimental.AI;
+using UnityEngine.InputSystem;
 
 public class playerMovement : MonoBehaviour
 {
@@ -43,6 +44,13 @@ public class playerMovement : MonoBehaviour
     public float deceleration = 30f;
     public float maxSpeed = 10f;
     private float currentSpeed = 0f;
+
+    //Player Knockback
+    public float KBforce;
+    public float KBCounter;
+    public float KBTotalTime;
+
+    public bool KnockFromRight;
 
     //animator
     public Animator Animator;
@@ -149,7 +157,7 @@ public class playerMovement : MonoBehaviour
     {
         if (((1 << col.gameObject.layer) & whatIsGround) != 0)
         {
-            // You’ve landed on ground
+            // Youâ€™ve landed on ground
             Animator.SetBool("Jumping", false);
         }
     }
@@ -161,45 +169,47 @@ public class playerMovement : MonoBehaviour
         //build the velocity vector
         Vector2 newVelocity = new Vector2(currentSpeed, m_Rigidbody.linearVelocity.y);
 
-
-        
-        // Handle horizontal movement with acceleration/deceleration
-        if (xMove != 0 && wallJumpCounter <= 0)
+        //Knockback
+        if(KBCounter <=  0)
         {
-            // Accelerate towards max speed
-            currentSpeed += xMove * acceleration * Time.fixedDeltaTime;
-            currentSpeed = Mathf.Clamp(currentSpeed, -maxSpeed, maxSpeed);
+            // Handle horizontal movement with acceleration/deceleration
+            if (xMove != 0 && wallJumpCounter <= 0)
+            {
+                // Accelerate towards max speed
+                currentSpeed += xMove * acceleration * Time.fixedDeltaTime;
+                currentSpeed = Mathf.Clamp(currentSpeed, -maxSpeed, maxSpeed);
+            }
+            else
+            {
+                // Decelerate to 0 when no input
+                if (currentSpeed > 0)
+                {
+                    currentSpeed -= deceleration * Time.fixedDeltaTime;
+                    if (currentSpeed < 0) currentSpeed = 0;
+                }
+                else if (currentSpeed < 0)
+                {
+                    currentSpeed += deceleration * Time.fixedDeltaTime;
+                    if (currentSpeed > 0) currentSpeed = 0;
+                }
+            }
+            // Apply final velocity after all movement and jump logic
+            m_Rigidbody.linearVelocity = newVelocity;
         }
         else
         {
-            // Decelerate to 0 when no input
-            if (currentSpeed > 0)
+            if(KnockFromRight == true)
             {
-                currentSpeed -= deceleration * Time.fixedDeltaTime;
-                if (currentSpeed < 0) currentSpeed = 0;
+                m_Rigidbody.linearVelocity = new Vector2(-KBforce, KBforce);
             }
-            else if (currentSpeed < 0)
+            if(KnockFromRight == false)
             {
-                currentSpeed += deceleration * Time.fixedDeltaTime;
-                if (currentSpeed > 0) currentSpeed = 0;
+                m_Rigidbody.linearVelocity = new Vector2(KBforce, KBforce);
             }
+
+            KBCounter -= Time.deltaTime;
         }
-
-
         Collider2D hit = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, whatIsGround);
         isGrounded = hit != null;
-
-
-
-       
-        // Apply final velocity after all movement and jump logic
-        m_Rigidbody.linearVelocity = newVelocity;
-
-
-
     }
 }
-
-
-
-    
