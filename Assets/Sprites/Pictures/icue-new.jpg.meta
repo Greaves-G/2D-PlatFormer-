@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      icue-new_0: 5327298618115626030
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

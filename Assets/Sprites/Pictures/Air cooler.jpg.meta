@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Air cooler_0: -209617286822222891
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

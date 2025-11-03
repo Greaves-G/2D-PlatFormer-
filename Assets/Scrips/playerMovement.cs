@@ -1,4 +1,7 @@
-    using Unity.VisualScripting;
+using System.Collections;
+using System.Runtime.CompilerServices;
+using TMPro;
+using Unity.VisualScripting;
     using UnityEngine;
 using UnityEngine.Experimental.AI;
 using UnityEngine.InputSystem;
@@ -13,6 +16,7 @@ public class playerMovement : MonoBehaviour
 
     //store control actions
     private InputAction jumpAction;
+    private InputAction dashAction;
     private float jumpTimeCounter;
     private bool canCancelJump = false;
 
@@ -20,18 +24,6 @@ public class playerMovement : MonoBehaviour
     public float jumpForce = 10f;
     public float jumpHoldForce = 5f;
     public float maxJumpTime = 0.5f;
-
-    public Transform wallCheckPoint;
-    public float wallCheckDistance = 0.5f;
-    public LayerMask whatIsWall;
-    private bool isTouchingWall;
-    private bool isWallSliding;
-    public float wallSlideSpeed = 2f;
-
-    public float wallJumpForceX = 8f;
-    public float wallJumpForceY = 12f;
-    public float wallJumpTime = 0.2f;
-    private float wallJumpCounter;
 
     public Transform groundCheckPoint;
     public LayerMask whatIsGround;
@@ -63,14 +55,25 @@ public class playerMovement : MonoBehaviour
 
     private AudioSource audioSource;
 
+    //Dashing
+    public TrailRenderer TrailRenderer;
+    public bool ableToDash = true;
+    private bool isDashing;
+    private float power = 50;
+    private float cooldown = 0.5f;
+    private float time = 0.3f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     void Start()
     {
         m_Rigidbody = GetComponent<Rigidbody2D>();
-        
+
         //finding what the jump button is.
-        jumpAction = playerinput.actions["jump"];
+        jumpAction = playerinput.actions["Jump"];
+
+        //Dash Button
+        dashAction = playerinput.actions["Dash"];
 
         //Getting Audiosource
         audioSource = GetComponent<AudioSource>();
@@ -91,7 +94,6 @@ public class playerMovement : MonoBehaviour
         isGrounded = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, whatIsGround);
         wasGrounded = isGrounded;
         Vector2 wallCheckDir = transform.right * Mathf.Sign(transform.localScale.x);
-        isTouchingWall = Physics2D.Raycast(wallCheckPoint.position, wallCheckDir, wallCheckDistance, whatIsWall);
 
 
         // Smooth flip based on current speed instead of input
@@ -107,7 +109,7 @@ public class playerMovement : MonoBehaviour
         // animations
         Animator.SetFloat("Speed", Mathf.Abs(xMove));
 
-        
+
 
         // Ground check
         isGrounded = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, whatIsGround);
@@ -119,7 +121,7 @@ public class playerMovement : MonoBehaviour
             isJumping = true;
             canCancelJump = true;
             m_Rigidbody.linearVelocity = new Vector2(m_Rigidbody.linearVelocity.x, jumpForce);
-            
+
         }
         // Held jump force
         if (jumpAction.IsPressed() && m_Rigidbody.linearVelocity.y > 0f && isJumping)
@@ -164,16 +166,16 @@ public class playerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-      
+
 
         //build the velocity vector
         Vector2 newVelocity = new Vector2(currentSpeed, m_Rigidbody.linearVelocity.y);
 
         //Knockback
-        if(KBCounter <=  0)
+        if (KBCounter <= 0)
         {
             // Handle horizontal movement with acceleration/deceleration
-            if (xMove != 0 && wallJumpCounter <= 0)
+            if (xMove != 0)
             {
                 // Accelerate towards max speed
                 currentSpeed += xMove * acceleration * Time.fixedDeltaTime;
@@ -193,16 +195,26 @@ public class playerMovement : MonoBehaviour
                     if (currentSpeed > 0) currentSpeed = 0;
                 }
             }
+            if(!isDashing)
+            {
+                m_Rigidbody.linearVelocity = new Vector2(xMove * acceleration, m_Rigidbody.linearVelocity.y);
+            }
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                StartCoroutine(Dash());
+            }
+
+
             // Apply final velocity after all movement and jump logic
             m_Rigidbody.linearVelocity = newVelocity;
         }
         else
         {
-            if(KnockFromRight == true)
+            if (KnockFromRight == true)
             {
                 m_Rigidbody.linearVelocity = new Vector2(-KBforce, KBforce);
             }
-            if(KnockFromRight == false)
+            if (KnockFromRight == false)
             {
                 m_Rigidbody.linearVelocity = new Vector2(KBforce, KBforce);
             }
@@ -212,4 +224,20 @@ public class playerMovement : MonoBehaviour
         Collider2D hit = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, whatIsGround);
         isGrounded = hit != null;
     }
-}
+
+    private IEnumerator Dash()
+    {
+        ableToDash = false;
+        isDashing = true;
+        m_Rigidbody.gravityScale = 0;
+        m_Rigidbody.linearVelocity = new Vector2(transform.localScale.x * power, 0);
+        TrailRenderer.emitting = true;
+        yield return new WaitForSeconds(time);
+        TrailRenderer.emitting = false;
+        isDashing = false;
+        m_Rigidbody.gravityScale = 5;
+        yield return new WaitForSeconds(cooldown);
+        ableToDash = true;
+    }
+}   
+    
