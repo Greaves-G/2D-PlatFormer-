@@ -22,6 +22,9 @@ public class PlayerHealth : MonoBehaviour
     public GameObject heart2;
     public GameObject heart3;
 
+    //Damage Audio
+    [SerializeField] private AudioClip damageSoundClip;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -50,6 +53,8 @@ public class PlayerHealth : MonoBehaviour
         {
             StartCoroutine(RespawnCoroutine());
         }
+        //play's sound effect
+        SoundFX.instance.PlaySoundFXClip(damageSoundClip, transform, 1f);
     }
 
     public void Heal(int amount)

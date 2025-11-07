@@ -33,7 +33,7 @@ public class QuestionManager : MonoBehaviour
         }
         else
         {
-            m_QuestionText.text = "All questions complete!";
+            m_QuestionText.text = "All questions complete! Press ESC to go to Menu when you are ready";
         }
 
     }
