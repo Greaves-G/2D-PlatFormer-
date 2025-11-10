@@ -6,11 +6,16 @@ public class Coin : MonoBehaviour
 
     public int m_Value = 1;
 
+    [SerializeField] private AudioClip coinFX;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //Only trigger if the player touches the coin
         if (collision.CompareTag("Player"))
         {
+            //Play sound effect
+            SoundFX.instance.PlaySoundFXClip(coinFX, transform, 1f);
+
             //find the ScoreManager and add points 
             ScoreManager scoreManager = FindFirstObjectByType<ScoreManager>();
             {
