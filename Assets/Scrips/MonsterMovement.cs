@@ -20,6 +20,7 @@ public class MonsterMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Chasing code
         if (isChasing)
         {
             if (transform.position.x > playerTransform.position.x)
@@ -35,11 +36,12 @@ public class MonsterMovement : MonoBehaviour
         }
         else
         {
+            //Check if chasing player
             if(Vector2.Distance(transform.position, playerTransform.position) < chaseDistance)
             {
                 isChasing = true;
             } 
-            
+            //Go to point 1
             if (patrolDestination == 0)
             {
                 transform.position = Vector2.MoveTowards(transform.position, patrolPoints[0].position, moveSpeed * Time.deltaTime);
@@ -49,7 +51,7 @@ public class MonsterMovement : MonoBehaviour
                     patrolDestination = 1;
                 }
             }
-
+            //go to point 2
             if (patrolDestination == 1)
             {
                 transform.position = Vector2.MoveTowards(transform.position, patrolPoints[1].position, moveSpeed * Time.deltaTime);
