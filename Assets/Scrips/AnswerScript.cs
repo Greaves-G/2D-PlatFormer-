@@ -12,6 +12,9 @@ public class AnswerScript : MonoBehaviour
     //Damage
     public int m_Damage = 1;
 
+    //Correct sound
+    [SerializeField] private AudioClip CorrectSoundClip;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -40,6 +43,7 @@ public class AnswerScript : MonoBehaviour
 
             if (correct)
             {
+                SoundFX.instance.PlaySoundFXClip(CorrectSoundClip, transform, 1f);
                 Debug.Log("Player chose the correct answer");
                 
             }

@@ -225,6 +225,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AnswerText: GPU
   m_WorldText: {fileID: 0}
+  m_Damage: 1
+  CorrectSoundClip: {fileID: 8300000, guid: 4397fcf6338162445b834512ec92d103, type: 3}
 --- !u!1 &7091504395245057176
 GameObject:
   m_ObjectHideFlags: 0
